@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osborne Fernandes | Digital Business Card</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 15px 0;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .container { max-width: 480px; margin: 0 auto; padding: 0 15px; }
+
+        .profile-section { text-align: center; padding: 25px 15px; animation: fadeInDown 0.6s ease; }
+
+        .profile-img {
+            width: 120px; height: 120px; border-radius: 50%;
+            border: 4px solid #fff; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px; background: var(--primary-gradient);
+            display: flex; align-items: center; justify-content: center;
+            margin-left: auto; margin-right: auto; font-size: 50px; color: #fff;
+            overflow: hidden;
+        }
+
+        .profile-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .profile-name { font-size: 26px; font-weight: 700; margin-bottom: 8px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
+        .profile-title { font-size: 13px; opacity: 0.9; margin-bottom: 5px; line-height: 1.5; }
+
+        .action-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; animation: fadeInUp 0.6s ease 0.2s both; }
+
+        .action-btn {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 12px 8px; text-align: center;
+            color: #fff; text-decoration: none; transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover { transform: translateY(-3px); background: rgba(255, 255, 255, 0.1); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); color: #fff; }
+        .action-btn i { font-size: 22px; margin-bottom: 5px; display: block; }
+        .action-btn span { font-size: 11px; font-weight: 500; }
+
+        .contact-info { margin: 20px 0; animation: fadeInUp 0.6s ease 0.3s both; }
+
+        .contact-item {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+            display: flex; align-items: center; backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            min-height: 60px;
+        }
+
+        .contact-item:hover { background: rgba(255, 255, 255, 0.08); transform: translateX(5px); }
+        .contact-item i { font-size: 22px; margin-right: 12px; color: #a78bfa; flex-shrink: 0; }
+        .contact-item-content { flex: 1; min-width: 0; }
+        .contact-item-label { font-size: 11px; opacity: 0.7; margin-bottom: 2px; }
+        .contact-item-value { font-size: 14px; font-weight: 500; word-break: break-word; }
+
+        .section-title { font-size: 20px; font-weight: 700; margin: 30px 0 18px; text-align: center; animation: fadeInUp 0.6s ease 0.4s both; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px; animation: fadeInUp 0.6s ease 0.5s both; }
+
+        .service-card {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 18px 12px; text-align: center;
+            backdrop-filter: blur(10px); transition: all 0.3s ease;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.08); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+.service-card i { font-size: 32px; margin-bottom: 8px; color: #a78bfa; }
+        .service-card h6 { font-size: 13px; font-weight: 600; margin: 0; }
+
+        .btn-whatsapp {
+            background: #25D366; color: #fff; border: none; border-radius: 12px;
+            padding: 12px 20px; font-weight: 600; width: 100%; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            text-decoration: none;
+            min-height: 48px;
+            font-size: 15px;
+        }
+
+        .btn-whatsapp:hover { background: #20ba5a; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); color: #fff; }
+
+        .reviews-section { margin: 25px 0; animation: fadeInUp 0.6s ease 0.7s both; }
+
+        .review-card {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 18px; margin-bottom: 12px; backdrop-filter: blur(10px);
+        }
+
+        .review-stars { color: #fbbf24; margin-bottom: 10px; font-size: 16px; }
+        .review-text { font-size: 13px; line-height: 1.6; margin-bottom: 10px; font-style: italic; }
+        .review-author { font-size: 12px; font-weight: 600; color: #a78bfa; }
+
+        .btn-primary-custom {
+            background: var(--primary-gradient); color: #fff; border: none;
+            border-radius: 12px; padding: 13px 25px; font-weight: 600; width: 100%;
+            transition: all 0.3s ease; display: flex; align-items: center;
+            justify-content: center; gap: 8px; text-decoration: none;
+            min-height: 48px;
+            font-size: 15px;
+        }
+
+        .btn-primary-custom:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); color: #fff; }
+
+        .toast-container {
+            position: fixed; top: 15px; right: 15px; left: 15px; z-index: 2000;
+            display: flex; flex-direction: column; gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .toast-msg {
+            background: #1a1a2e; border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px; padding: 12px 18px; color: #fff;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            display: flex; align-items: center; gap: 10px;
+            animation: slideIn 0.3s ease;
+            font-size: 14px;
+        }
+
+        .toast-msg.success { border-left: 4px solid #10b981; }
+        .toast-msg.error { border-left: 4px solid #ef4444; }
+        .toast-msg.info { border-left: 4px solid #3b82f6; }
+
+        @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile Optimizations */
+        @media (max-width: 480px) {
+            body { padding: 10px 0; }
+            .container { padding: 0 12px; }
+            
+            .profile-section { padding: 20px 10px; }
+            .profile-img { width: 100px; height: 100px; font-size: 42px; margin-bottom: 15px; }
+            .profile-name { font-size: 22px; }
+            .profile-title { font-size: 12px; }
+            
+            .action-buttons { grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 18px 0; }
+            .action-btn { padding: 14px 8px; min-height: 75px; }
+            .action-btn i { font-size: 24px; }
+            .action-btn span { font-size: 12px; }
+            
+            .contact-item { padding: 12px 14px; margin-bottom: 10px; }
+            .contact-item i { font-size: 20px; margin-right: 10px; }
+            .contact-item-value { font-size: 13px; }
+            
+            .section-title { font-size: 18px; margin: 25px 0 15px; }
+            
+            .services-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+            .service-card { padding: 16px 10px; min-height: 90px; }
+            .service-card i { font-size: 28px; margin-bottom: 6px; }
+            .service-card h6 { font-size: 12px; }
+            
+            .pricing-card { padding: 20px 16px; margin-bottom: 16px; }
+            .pricing-title { font-size: 18px; }
+            .pricing-amount { font-size: 28px; }
+            .pricing-features li { font-size: 12px; padding: 6px 0; }
+            
+            .review-card { padding: 16px; margin-bottom: 12px; }
+            .review-text { font-size: 12px; }
+            .review-author { font-size: 11px; }
+            
+            .btn-whatsapp, .btn-primary-custom { padding: 12px 18px; font-size: 14px; }
+        }
+
+        @media (max-width: 360px) {
+            .profile-name { font-size: 20px; }
+            .profile-title { font-size: 11px; }
+            .action-btn span { font-size: 11px; }
+            .service-card h6 { font-size: 11px; }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .action-btn, .contact-item, .service-card, .btn-whatsapp, .btn-primary-custom {
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .action-btn:active, .service-card:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainCard">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-img" id="profileImgContainer">
+                <i class="bi bi-person-fill"></i>
+            </div>
+            <h1 class="profile-name" id="displayName">Osborne Fernandes</h1>
+            <p class="profile-title" id="displayTitle1">IT OPERATIONS LEAD</p>
+            <p class="profile-title" id="displayTitle2">30+ Years Full-Stack & Hardware</p>
+        </div>
+        <!-- Action Buttons -->
+        <div class="action-buttons" id="actionButtons"></div>
+
+        <!-- Contact Information -->
+        <div class="contact-info" id="contactInfo"></div>
+
+<!-- Services Section -->
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid" id="servicesGrid"></div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <h2 class="section-title">Client Reviews</h2>
+            <div id="reviewsList"></div>
+            <a href="https://share.google/p9j6hpztl4iu3gaSJ" class="btn-primary-custom" id="viewReviewsBtn" target="_blank">
+                <i class="bi bi-star-fill"></i><span>View All Reviews</span>
+            </a>
+        </div>
+
+        <!-- Book Meeting Section -->
+        <div style="margin: 25px 0;">
+            <h2 class="section-title">Book a Meeting</h2>
+            <a href="#" class="btn-primary-custom" id="bookMeetingBtn">
+                <i class="bi bi-calendar-check"></i>
+                <span>Schedule Appointment</span>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 25px 0; opacity: 0.7; font-size: 12px;">
+            <p>© 2026 Osborne Fernandes · From hardware to AI — still building.</p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ============ STATIC DATA ============
+        const appData = {
+            profile: {
+                name: 'Osborne Fernandes',
+                title1: 'IT OPERATIONS LEAD',
+                title2: '30+ Years Full-Stack & Hardware',
+                image: 'image/of.png'
+            },
+            contacts: [
+                { label: 'Phone', value: '+63 9975849230', icon: 'bi-telephone-fill', link: 'tel:+639975849230' },
+                { label: 'Email', value: 'osbornefernds@gmail.com', icon: 'bi-envelope-fill', link: 'mailto:osbornefernds@gmail.com' },
+                { label: 'Location', value: 'Based in the Philippines · Available Worldwide', icon: 'bi-geo-alt-fill', link: '' }
+            ],
+            services: [
+                { title: 'AI Chatbot', icon: 'bi-robot' },
+                { title: 'Mobile App', icon: 'bi-phone' },
+                { title: 'Software Dev', icon: 'bi-code-slash' },
+                { title: 'Web App', icon: 'bi-laptop' },
+                { title: 'AI Development', icon: 'bi-cpu' },
+                { title: 'Digital Design', icon: 'bi-palette' }
+            ],
+            reviews: [
+                { author: 'John D.', rating: 5, text: 'Exceptional work! Osborne delivered our project ahead of schedule with outstanding quality. Highly recommended!' },
+                { author: 'Maria S.', rating: 5, text: 'Professional, knowledgeable, and delivers exactly what you need. The AI integration was seamless!' }
+            ],
+            settings: {
+                whatsappNumber: '971505280169',
+                websiteUrl: 'https://osborneferds.github.io/Resume/',
+                reviewsUrl: '#'
+            }
+        };
+
+        // ============ RENDER FUNCTIONS ============
+        function renderAll() {
+            renderProfile();
+            renderActionButtons();
+            renderContacts();
+            renderServices();
+            renderReviews();
+            renderBookMeeting();
+        }
+
+        function renderProfile() {
+            document.getElementById('displayName').textContent = appData.profile.name;
+            document.getElementById('displayTitle1').textContent = appData.profile.title1;
+            document.getElementById('displayTitle2').textContent = appData.profile.title2;
+
+            const container = document.getElementById('profileImgContainer');
+            if (appData.profile.image) {
+                container.innerHTML = `<img src="${appData.profile.image}" alt="Profile" onerror="this.parentElement.innerHTML='<i class=\\'bi bi-person-fill\\'></i>'">`;
+            } else {
+                container.innerHTML = '<i class="bi bi-person-fill"></i>';
+            }
+        }
+
+        function renderActionButtons() {
+            const container = document.getElementById('actionButtons');
+            const waNum = appData.settings.whatsappNumber;
+            const webUrl = appData.settings.websiteUrl;
+
+            container.innerHTML = `
+                <a href="${webUrl}" class="action-btn" target="_blank">
+                    <i class="bi bi-globe"></i><span>Website</span>
+                </a>
+                <a href="#" class="action-btn" id="shareBtn">
+                    <i class="bi bi-share"></i><span>Share</span>
+                </a>
+                <a href="https://wa.me/${waNum}" class="action-btn" target="_blank">
+                    <i class="bi bi-whatsapp"></i><span>WhatsApp</span>
+                </a>
+                <a href="#" class="action-btn" id="downloadContactBtn">
+                    <i class="bi bi-person-plus"></i><span>Contacts</span>
+                </a>
+            `;
+
+            document.getElementById('shareBtn').addEventListener('click', (e) => { e.preventDefault(); shareCard(); });
+            document.getElementById('downloadContactBtn').addEventListener('click', (e) => { e.preventDefault(); downloadContact(); });
+        }
+
+        function renderContacts() {
+            const container = document.getElementById('contactInfo');
+            container.innerHTML = appData.contacts.map(c => {
+                let valueHtml = c.value;
+                if (c.link) {
+                    valueHtml = `<a href="${c.link}" style="color: inherit; text-decoration: none;">${c.value}</a>`;
+                }
+                return `
+                    <div class="contact-item">
+                        <i class="bi ${c.icon}"></i>
+                        <div class="contact-item-content">
+                            <div class="contact-item-label">${c.label}</div>
+                            <div class="contact-item-value">${valueHtml}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderServices() {
+            const container = document.getElementById('servicesGrid');
+            container.innerHTML = appData.services.map(s => `
+                <div class="service-card">
+                    <i class="bi ${s.icon}"></i>
+                    <h6>${s.title}</h6>
+                </div>
+            `).join('');
+        }
+
+        function renderReviews() {
+            const container = document.getElementById('reviewsList');
+            container.innerHTML = appData.reviews.map(r => `
+                <div class="review-card">
+                    <div class="review-stars">
+                        ${'<i class="bi bi-star-fill"></i>'.repeat(r.rating)}${'<i class="bi bi-star"></i>'.repeat(5 - r.rating)}
+                    </div>
+                    <p class="review-text">"${r.text}"</p>
+                    <div class="review-author">- ${r.author}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderBookMeeting() {
+            const waNum = appData.settings.whatsappNumber;
+            const btn = document.getElementById('bookMeetingBtn');
+            btn.href = `https://wa.me/${waNum}?text=${encodeURIComponent("Hi Osborne, I'd like to schedule a meeting")}`;
+            btn.target = '_blank';
+        }
+
+        // ============ TOAST ============
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', info: 'bi-info-circle-fill' };
+            const toast = document.createElement('div');
+            toast.className = `toast-msg ${type}`;
+            toast.innerHTML = `<i class="bi ${icons[type]}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-100%)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ============ PUBLIC FUNCTIONS ============
+        function shareCard() {
+            const shareUrl = 'https://share.google/hHhdJDeCwYo5g7euv';
+            if (navigator.share) {
+                navigator.share({
+                    title: appData.profile.name + ' - Digital Business Card',
+                    text: `Check out ${appData.profile.name}'s digital business card`,
+                    url: shareUrl
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    showToast('Link copied to clipboard!', 'success');
+                }).catch(() => {
+                    const input = document.createElement('input');
+                    input.value = shareUrl;
+                    document.body.appendChild(input);
+                    input.select();
+                    try {
+                        document.execCommand('copy');
+                        showToast('Link copied to clipboard!', 'success');
+                    } catch (err) {
+                        showToast('Unable to share', 'error');
+                    }
+                    document.body.removeChild(input);
+                });
+            }
+        }
+
+        function downloadContact() {
+            const p = appData.profile;
+            const c = appData.contacts;
+            const phone = c.find(x => x.link && x.link.startsWith('tel:'));
+            const email = c.find(x => x.link && x.link.startsWith('mailto:'));
+            const loc = c.find(x => x.label.toLowerCase().includes('location'));
+
+            const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${p.name}
+TITLE:${p.title1}
+${phone ? `TEL;TYPE=CELL:${phone.value.replace(/\s/g, '')}` : ''}
+${email ? `EMAIL:${email.value}` : ''}
+${loc ? `ADR;TYPE=WORK:;;${loc.value};;;;` : ''}
+NOTE:${p.title2}
+END:VCARD`;
+
+            const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${p.name.replace(/\s+/g, '_')}.vcf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Contact downloaded!', 'success');
+        }
+
+        // ============ INIT ============
+        renderAll();
+    </script>
+</body>
+</html>
